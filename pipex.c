@@ -5,7 +5,7 @@ int main(int argc, char *argv[], char *envp[])
     t_pipex pipex;
 
     ft_bzero(&pipex, sizeof(t_pipex));
-    if (argc < min_arg(&pipex, argv[1]))
+    if (argc < min_argc(&pipex, argv[1]))
         exit_with_msg("Invalid number of arguments.\n");
     if (pipex.heredoc)
         here_doc(&pipex, argc, argv);
@@ -20,7 +20,7 @@ int main(int argc, char *argv[], char *envp[])
         piping(argv[pipex.idx_cmd], envp);
         pipex.idx_cmd++;
     }
-    do_cmd(argv[pipex.last_cmd], envp);
     if (pipex.heredoc)
         unlink(".heredoc_tmp");
+    do_cmd(argv[pipex.last_cmd], envp);
 }

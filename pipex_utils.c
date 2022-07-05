@@ -4,7 +4,7 @@ int min_argc(t_pipex *pipex, char *arg)
 {
     if (arg && !ft_strncmp(arg, "here_doc", ft_strlen("here_doc")))
     {
-        pipex->heredoc = 1;
+        pipex->heredoc++;
         return (6);
     }
     else
