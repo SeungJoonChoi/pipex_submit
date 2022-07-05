@@ -1,4 +1,4 @@
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 static void make_temp(char *limiter)
 {
@@ -38,9 +38,11 @@ void here_doc(t_pipex *pipex, int argc, char **argv)
     if (pipex->infile < 0)
     {
         unlink(".heredoc_tmp");
-        exit_with_msg("Failed to open temp_file.\n");
+        exit_with_msg("Failed to open file.\n");
     }
     pipex->outfile = open(argv[argc - 1], O_WRONLY | O_CREAT | O_APPEND, 0644);
+    if (pipex->outfile < 0)
+        exit_with_msg("Failed to open file.\n");
 }
 
 void openfile(t_pipex *pipex, int argc, char **argv)
@@ -48,5 +50,9 @@ void openfile(t_pipex *pipex, int argc, char **argv)
     pipex->idx_cmd = 2;
     pipex->last_cmd = argc - 2;
     pipex->infile = open(argv[1], O_RDONLY);
+    if (pipex->infile < 0)
+        exit_with_msg("Failed to open file.\n");
     pipex->outfile = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (pipex->outfile < 0)
+        exit_with_msg("Failed to open file.\n");
 }

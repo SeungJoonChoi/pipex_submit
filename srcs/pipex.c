@@ -11,8 +11,6 @@ int main(int argc, char *argv[], char *envp[])
         here_doc(&pipex, argc, argv);
     else
         openfile(&pipex, argc, argv);
-    if (pipex.infile < 0 || pipex.outfile < 0)
-        exit_with_msg("Failed to open file.\n");
     dup2(pipex.infile, STDIN_FILENO);
     dup2(pipex.outfile, STDOUT_FILENO);
     while (pipex.idx_cmd < pipex.last_cmd)
