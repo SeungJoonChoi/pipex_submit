@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seunchoi <seunchoi@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: seungjoon <seungjoon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 13:36:08 by seunchoi          #+#    #+#             */
-/*   Updated: 2022/02/10 13:36:10 by seunchoi         ###   ########.fr       */
+/*   Updated: 2022/07/06 20:57:07 by seungjoon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
