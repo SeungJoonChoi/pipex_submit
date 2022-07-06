@@ -5,7 +5,7 @@ NAME = pipex
 LIBS = -L./libft -lft
 
 SRC_DIR = ./srcs/
-BONUS_DIR = ./bonus/
+BONUS_DIR = ./bonus_srcs/
 
 SRC_LIST = error.c\
 get_next_line_utils.c\

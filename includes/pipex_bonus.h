@@ -1,5 +1,5 @@
 #ifndef PIPEX_BONUS_H
-# define PIPEX__BONUS_H
+# define PIPEX_BONUS_H
 
 # include <unistd.h>
 # include <stdlib.h>
