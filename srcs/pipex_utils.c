@@ -85,7 +85,7 @@ void do_cmd(char *cmd, char **envp)
     exit_with_msg(cmd);
 }
 
-void piping(char *cmd, char *envp[])
+void piping(t_pipex *pipex, char *cmd, char *envp[], int i)
 {
     pid_t pid;
     int fd[2];
@@ -95,16 +95,25 @@ void piping(char *cmd, char *envp[])
     pid = fork();
     if (pid == 0)
     {
-        close(fd[0]);
-        dup2(fd[1], STDOUT_FILENO);
-        close(fd[1]);
-        do_cmd(cmd, envp);
+        if (i == pipex->cmd_nmb - 1)
+        {
+            close(fd[0]);
+            close(fd[1]);
+            do_cmd(cmd, envp);
+        }
+        else
+        {
+            close(fd[0]);
+            dup2(fd[1], STDOUT_FILENO);
+            close(fd[1]);
+            do_cmd(cmd, envp);
+        }
     }
     else
     {
+        pipex->child_pid[i] = pid;
         close(fd[1]);
         dup2(fd[0], STDIN_FILENO);
         close(fd[0]);
-        waitpid(pid, NULL, 0);
     }
 }

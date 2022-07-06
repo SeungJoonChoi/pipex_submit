@@ -1,0 +1,24 @@
+       3
+Process:         pipex [39531]
+Path:            /Users/USER/Desktop/*/pipex
+Load Address:    0x10227c000
+Identifier:      pipex
+Version:         ???
+Code Type:       ARM64
+Platform:        macOS
+Parent Process:  zsh [53212]
+
+Date/Time:       2022-07-06 19:59:59.371 +0900
+Launch Time:     2022-07-06 19:59:59.312 +0900
+OS Version:      macOS 12.4 (21F79)
+Report Version:  7
+Analysis Tool:   /usr/bin/leaks
+
+Physical footprint:         945K
+Physical footprint (peak):  945K
+----
+
+leaks Report Version: 4.0
+Process 39531: 210 nodes malloced for 12 KB
+Process 39531: 0 leaks for 0 total leaked bytes.
+
