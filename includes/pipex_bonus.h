@@ -1,5 +1,5 @@
 #ifndef PIPEX_BONUS_H
-# define PIPEX_BONUS_H
+# define PIPEX__BONUS_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -12,8 +12,8 @@ typedef struct s_pipex
     int heredoc;
     int infile;
     int outfile;
-    int idx_cmd;
-    int last_cmd;
+    int cmd_nmb;
+    int *child_pid;
 } t_pipex;
 
 //openfile
@@ -22,7 +22,7 @@ void openfile(t_pipex *pipex, int argc, char **argv);
 //utils
 int min_argc(t_pipex *pipex, char *arg);
 void do_cmd(char *cmd, char **envp);
-void piping(char *cmd, char *envp[]);
+void piping(t_pipex *pipex, char *cmd, char *envp[], int i);
 //error
 void exit_with_msg(char *err_msg);
 //get_next_line

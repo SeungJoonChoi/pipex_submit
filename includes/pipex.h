@@ -12,7 +12,6 @@ typedef struct s_pipex
     int heredoc;
     int infile;
     int outfile;
-    int fir_cmd;
     int cmd_nmb;
     int *child_pid;
 } t_pipex;

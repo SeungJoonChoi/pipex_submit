@@ -4,7 +4,7 @@ int min_argc(t_pipex *pipex, char *arg)
 {
     if (arg && !ft_strncmp(arg, "here_doc", ft_strlen("here_doc")))
     {
-        pipex->heredoc++;
+        pipex->heredoc = 1;
         return (6);
     }
     else
@@ -74,9 +74,9 @@ void do_cmd(char *cmd, char **envp)
     argv = ft_split(cmd, ' ');
     if (argv == NULL)
         return ;
-    if (ft_strchr(argv[0], '/') == NULL)
+    if (argv[0] && ft_strchr(argv[0], '/') == NULL)
         path = pathfinder(argv[0], envp);
-    else
+    else if (argv[0])
         path = argv[0];
     if (access(path, F_OK) != 0)
         exit_with_msg("Command not found.\n");
@@ -85,7 +85,7 @@ void do_cmd(char *cmd, char **envp)
     exit_with_msg(cmd);
 }
 
-void piping(char *cmd, char *envp[])
+void piping(t_pipex *pipex, char *cmd, char *envp[], int i)
 {
     pid_t pid;
     int fd[2];
@@ -93,18 +93,23 @@ void piping(char *cmd, char *envp[])
     if (pipe(fd) != 0)
         exit_with_msg("Failed to creat pipe.\n");
     pid = fork();
-    if (pid == 0)
+    if (pid < 0)
+        exit_with_msg("fork error.\n");
+    else if (pid == 0)
     {
+        if (i != pipex->cmd_nmb - 1)
+            if (dup2(fd[1], STDOUT_FILENO) < 0)
+                exit_with_msg("dup2 error.\n");
         close(fd[0]);
-        dup2(fd[1], STDOUT_FILENO);
         close(fd[1]);
         do_cmd(cmd, envp);
     }
     else
     {
+        pipex->child_pid[i] = pid;
         close(fd[1]);
-        dup2(fd[0], STDIN_FILENO);
+        if (dup2(fd[0], STDIN_FILENO) < 0)
+            exit_with_msg("dup2 error.\n");
         close(fd[0]);
-        waitpid(pid, NULL, 0);
     }
 }

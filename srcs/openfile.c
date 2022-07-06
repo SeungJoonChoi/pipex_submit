@@ -31,7 +31,6 @@ static void make_temp(char *limiter)
 
 void here_doc(t_pipex *pipex, int argc, char **argv)
 {
-    pipex->fir_cmd = 3;
     pipex->cmd_nmb = argc - 4;
     make_temp(argv[2]);
     pipex->infile = open(".heredoc_tmp", O_RDONLY);
@@ -44,16 +43,15 @@ void here_doc(t_pipex *pipex, int argc, char **argv)
     if (pipex->outfile < 0)
         exit_with_msg("Failed to open file.\n");
     if (dup2(pipex->infile, STDIN_FILENO) < 0)
-        exit_with_msg("dup2 failed.\n");
+        exit_with_msg("dup2 error.\n");
     if (dup2(pipex->outfile, STDOUT_FILENO) < 0)
-        exit_with_msg("dup2 failed.\n");
+        exit_with_msg("dup2 error.\n");
     close(pipex->infile);
     close(pipex->outfile);
 }
 
 void openfile(t_pipex *pipex, int argc, char **argv)
 {
-    pipex->fir_cmd = 2;
     pipex->cmd_nmb = argc - 3;
     pipex->infile = open(argv[1], O_RDONLY);
     if (pipex->infile < 0)
@@ -62,9 +60,9 @@ void openfile(t_pipex *pipex, int argc, char **argv)
     if (pipex->outfile < 0)
         exit_with_msg("Failed to open file.\n");
     if (dup2(pipex->infile, STDIN_FILENO) < 0)
-        exit_with_msg("dup2 failed.\n");
+        exit_with_msg("dup2 error.\n");
     if (dup2(pipex->outfile, STDOUT_FILENO) < 0)
-        exit_with_msg("dup2 failed.\n");
+        exit_with_msg("dup2 error.\n");
     close(pipex->infile);
     close(pipex->outfile);
 }

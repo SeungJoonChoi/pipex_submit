@@ -17,7 +17,7 @@ int main(int argc, char *argv[], char *envp[])
         exit_with_msg("Memory allocation failed.\n");
     i = -1;
     while (++i < pipex.cmd_nmb)
-        piping(&pipex, argv[pipex.fir_cmd + i], envp, i);
+        piping(&pipex, argv[2 + pipex.heredoc + i], envp, i);
     if (pipex.heredoc)
         unlink(".heredoc_tmp");
     i = -1;
